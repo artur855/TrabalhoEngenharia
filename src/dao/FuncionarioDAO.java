@@ -94,7 +94,7 @@ public class FuncionarioDAO {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Funcionario funcionario = new Funcionario(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("idfuncionario"),
                         resultSet.getString("dataDeAdmissao"),
                         resultSet.getString("nome"),
                         resultSet.getString("cpf"),

@@ -48,7 +48,7 @@ public class DepartamentoDAO {
             if (resultSet.next()) {
                 Funcionario funcionario = funcionarioDAO.getFuncionarioPorId(resultSet.getInt("idgerente"));
                 departamento = new Departamento(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("iddepartamento"),
                         resultSet.getString("sigla"),
                         resultSet.getFloat("comissao"),
                         funcionario

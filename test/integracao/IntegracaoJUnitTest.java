@@ -106,9 +106,9 @@ public class IntegracaoJUnitTest {
         Departamento departamento = departamentoDAO.getDepartamentoPorId(1);
         
         //Comparações
-        assertEquals(departamento.getGerente(), funcionario1);
-        assertNotEquals(departamento.getGerente(), funcionario2);
-        assertNotEquals(departamento.getGerente(), funcionario3);
+        assertEquals(departamento.getGerente().getId(), funcionario1.getId());
+        assertNotEquals(departamento.getGerente().getId(), funcionario2.getId());
+        assertNotEquals(departamento.getGerente().getId(), funcionario3.getId());
         
         
     }
