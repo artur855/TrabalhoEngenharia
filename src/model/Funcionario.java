@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Funcionario {
 
-    private int id;
+    private int idfuncionario;
     private String dataDeAdmissao;
     private String nome;
     private String cpf;
@@ -27,15 +27,15 @@ public class Funcionario {
 
     public Funcionario(int id, String dataDeAdmissao, String nome, String cpf, String rg, boolean situacao, Departamento departamento, List<Venda> vendas) {
         this(dataDeAdmissao, nome, cpf, rg, situacao, departamento, (vendas == null) ? vendas : new ArrayList<Venda>());
-        this.id = id;
+        this.idfuncionario = id;
     }
 
     public int getId() {
-        return id;
+        return idfuncionario;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idfuncionario = id;
     }
 
     public String getDataDeAdmissao() {

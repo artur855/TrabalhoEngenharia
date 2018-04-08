@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Produto {
 
-    private int id;
+    private int idproduto;
     private int quantidade;
     private String nome;
     private int preco;
@@ -13,18 +13,18 @@ public class Produto {
     private List<VendaProduto> vendasProdutos;
 
     public Produto(int id, int quantidade, int preco, Departamento departamento) {
-        this.id = id;
+        this.idproduto = id;
         this.quantidade = quantidade;
         this.preco = preco;
         this.vendasProdutos = new ArrayList<>();
     }
 
     public int getId() {
-        return id;
+        return idproduto;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idproduto = id;
     }
 
     public String getNome() {

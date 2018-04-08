@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Departamento {
 
-    private int id;
+    private int iddepartamento;
     private String sigla;
     private float comissao;
     private Funcionario gerente;
@@ -14,7 +14,7 @@ public class Departamento {
     private List<Venda> vendas;
 
     public Departamento(int id, String sigla, float comissao) {
-        this.id = id;
+        this.iddepartamento = id;
         this.sigla = sigla;
         this.comissao = comissao;
         this.funcionarios = new ArrayList<>();
@@ -27,12 +27,16 @@ public class Departamento {
         this.gerente = gerente;
     }
 
+    public Departamento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getId() {
-        return id;
+        return iddepartamento;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.iddepartamento = id;
     }
 
     public String getSigla() {
