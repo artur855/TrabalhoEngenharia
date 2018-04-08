@@ -22,7 +22,7 @@ public class Funcionario {
         this.rg = rg;
         this.situacao = situacao;
         this.departamento = departamento;
-        this.vendas = vendas;
+        this.vendas = (vendas == null) ? new ArrayList<>() : vendas;
     }
 
     public Funcionario(int id, String dataDeAdmissao, String nome, String cpf, String rg, boolean situacao, Departamento departamento, List<Venda> vendas) {

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DatabaseManager {
 
-    private static final String DATABASE_URL = "jdbc:sqlite:musicplayer.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:lojadepartamento.db";
     private static final String DATABASE_DRIVER = "org.sqlite.JDBC";
 
     public static Connection getConnection() {

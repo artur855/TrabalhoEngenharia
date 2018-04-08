@@ -7,6 +7,7 @@ public class Produto {
 
     private int id;
     private int quantidade;
+    private String nome;
     private int preco;
     private Departamento departamento;
     private List<VendaProduto> vendasProdutos;
@@ -24,6 +25,14 @@ public class Produto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public int getQuantidade() {

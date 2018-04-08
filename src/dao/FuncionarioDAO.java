@@ -11,27 +11,9 @@ import model.Venda;
 
 public class FuncionarioDAO {
 
-    private final String INSERT_QUERY = "INSERT INTO funcionario (nome, cpf, rg, dataDeAdmissao, situacao, idDepartamento) VALUES (?, ?, ?, ?, ?)";
-    private final String SELECT_FUNCIONARIOPORID_QUERY = "SELECT id, nome, cpf, rg, dataDeAdmissao, situacao, idDepartamento FROM funcionario f JOIN venda v ON f.id = v.idfuncionario WHERE id = ?";
-
-    public void insertFuncionario(Funcionario funcionario) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = DatabaseManager.getConnection();
-            preparedStatement = connection.prepareStatement(INSERT_QUERY);
-            preparedStatement.setString(0, funcionario.getNome());
-            preparedStatement.setString(1, funcionario.getCpf());
-            preparedStatement.setString(2, funcionario.getRg());
-            preparedStatement.setString(3, funcionario.getDataDeAdmissao());
-            preparedStatement.setBoolean(4, funcionario.isSituacao());
-            preparedStatement.setInt(5, funcionario.getDepartamento().getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseManager.closeConnection(connection, preparedStatement);
-        }
-    }
+    private final String INSERT_QUERY = "INSERT INTO funcionario (idfuncionario, nome, cpf, rg, dataDeAdmissao, situacao, iddepartamento) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String SELECT_FUNCIONARIOPORID_QUERY = "SELECT f.idfuncionario, f.nome, f.cpf, f.rg, f.dataDeAdmissao, f.situacao, f.iddepartamento, d.sigla, d.comissao FROM funcionario f JOIN departamento d ON f.iddepartamento = d.iddepartamento WHERE f.idfuncionario = ?";
+    private final String DELETE_QUERY = "DELETE FROM funcionario WHERE idfuncionario = ?";
 
     public Funcionario getFuncionarioPorId(int id) {
         Connection connection = null;
@@ -41,22 +23,19 @@ public class FuncionarioDAO {
         try {
             connection = DatabaseManager.getConnection();
             preparedStatement = connection.prepareStatement(SELECT_FUNCIONARIOPORID_QUERY);
-            preparedStatement.setInt(0, id);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Departamento departamento = null;
-                List<Venda> vendas = null;
+            if (resultSet.next()) {
                 funcionario = new Funcionario(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("idfuncionario"),
                         resultSet.getString("dataDeAdmissao"),
                         resultSet.getString("nome"),
                         resultSet.getString("cpf"),
                         resultSet.getString("rg"),
                         resultSet.getBoolean("situacao"),
-                        departamento,
-                        vendas
+                        new Departamento(resultSet.getInt("iddepartamento"), resultSet.getString("sigla"), resultSet.getFloat("comissao")),
+                        null
                 );
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,5 +43,41 @@ public class FuncionarioDAO {
             DatabaseManager.closeConnection(connection, preparedStatement, resultSet);
         }
         return funcionario;
+    }
+
+    public void insertFuncionario(Funcionario funcionario) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DatabaseManager.getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_QUERY);
+            preparedStatement.setInt(1, funcionario.getId());
+            preparedStatement.setString(2, funcionario.getNome());
+            preparedStatement.setString(3, funcionario.getCpf());
+            preparedStatement.setString(4, funcionario.getRg());
+            preparedStatement.setString(5, funcionario.getDataDeAdmissao());
+            preparedStatement.setBoolean(6, funcionario.isSituacao());
+            preparedStatement.setInt(7, funcionario.getDepartamento().getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseManager.closeConnection(connection, preparedStatement);
+        }
+    }
+    
+    public void delete(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DatabaseManager.getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_QUERY);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseManager.closeConnection(connection, preparedStatement);
+        }
     }
 }
