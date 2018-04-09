@@ -11,12 +11,16 @@ public class Venda {
     private String data;
     private float Comissao;
     private boolean Comissao_paga;
+    
+    public double maiorDeTodos = Double.NEGATIVE_INFINITY;
+    public double menorDeTodos = Double.POSITIVE_INFINITY;
 
     public Venda(ArrayList<VendaProduto> VendaProduto, Funcionario Funcionario, int Id_Venda, String Data) {
         this.listVendaProduto = VendaProduto;
         this.funcionario = Funcionario;
         this.idVenda = Id_Venda;
         this.data = Data;
+        Menor_MaiorValor();
         GerarPrecoTotal();
         GerarComissao();
     }
@@ -86,5 +90,15 @@ public class Venda {
     public void setData(String Data) {
         this.data = Data;
     }
-
+    
+    public void Menor_MaiorValor(){
+        for(VendaProduto VP : this.listVendaProduto){
+            if (VP.getProduto().getPreco() > maiorDeTodos){
+                    maiorDeTodos = VP.getProduto().getPreco();
+            }
+            if (VP.getProduto().getPreco() < menorDeTodos){
+                    menorDeTodos = VP.getProduto().getPreco();  
+            }
+        }
+    }
 }

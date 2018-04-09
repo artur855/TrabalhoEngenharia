@@ -29,6 +29,16 @@ public class Funcionario {
         this(dataDeAdmissao, nome, cpf, rg, situacao, departamento, (vendas == null) ? vendas : new ArrayList<Venda>());
         this.idfuncionario = id;
     }
+    
+    public Funcionario(int id, String dataDeAdmissao, String nome, String cpf, String rg, boolean situacao, Departamento departamento) {
+        this.idfuncionario = id;
+        this.dataDeAdmissao = dataDeAdmissao;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.situacao = situacao;
+        this.departamento = departamento;
+    }
 
     public int getId() {
         return idfuncionario;
