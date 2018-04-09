@@ -11,14 +11,25 @@ public class Venda {
     private String data;
     private float Comissao;
     private boolean Comissao_paga;
+    private Departamento departamento;
 
-    public Venda(ArrayList<VendaProduto> VendaProduto, Funcionario Funcionario, int Id_Venda, String Data) {
+    public double maiorDeTodos = Double.NEGATIVE_INFINITY;
+    public double menorDeTodos = Double.POSITIVE_INFINITY;
+
+    public Venda(ArrayList<VendaProduto> VendaProduto, Funcionario Funcionario, int Id_Venda, String Data, Departamento departamento) {
         this.listVendaProduto = VendaProduto;
         this.funcionario = Funcionario;
         this.idVenda = Id_Venda;
         this.data = Data;
+        this.Comissao = (departamento == null) ? 0 : departamento.getComissao();
+        this.departamento = departamento;
+        Menor_MaiorValor();
         GerarPrecoTotal();
         GerarComissao();
+    }
+
+    public Venda(ArrayList<VendaProduto> VendaProduto, Funcionario Funcionario, int Id_Venda, String data) {
+        this(VendaProduto, Funcionario, Id_Venda, data, null);
     }
 
     private void GerarPrecoTotal() {
@@ -87,4 +98,30 @@ public class Venda {
         this.data = Data;
     }
 
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public void Menor_MaiorValor() {
+        for (VendaProduto VP : this.listVendaProduto) {
+            if (VP.getProduto().getPreco() > maiorDeTodos) {
+                maiorDeTodos = VP.getProduto().getPreco();
+            }
+            if (VP.getProduto().getPreco() < menorDeTodos) {
+                menorDeTodos = VP.getProduto().getPreco();
+            }
+        }
+    }
 }

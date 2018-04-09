@@ -30,6 +30,10 @@ public class Funcionario {
         this.idfuncionario = id;
     }
 
+    public Funcionario(int id, String dataDeAdmissao, String nome, String cpf, String rg, boolean situacao, Departamento departamento) {
+        this(id, dataDeAdmissao, nome, cpf, rg, situacao, departamento, null);
+    }
+
     public int getId() {
         return idfuncionario;
     }

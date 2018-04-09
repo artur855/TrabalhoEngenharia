@@ -10,13 +10,11 @@ public class Produto {
     private String nome;
     private int preco;
     private Departamento departamento;
-    private List<VendaProduto> vendasProdutos;
-
+    
     public Produto(int id, int quantidade, int preco, Departamento departamento) {
         this.idproduto = id;
         this.quantidade = quantidade;
         this.preco = preco;
-        this.vendasProdutos = new ArrayList<>();
     }
 
     public int getId() {
@@ -57,13 +55,5 @@ public class Produto {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
-    }
-
-    public List<VendaProduto> getVendasProdutos() {
-        return vendasProdutos;
-    }
-
-    public void addVendaProduto(VendaProduto vendaProduto) {
-        this.vendasProdutos.add(vendaProduto);
     }
 }
