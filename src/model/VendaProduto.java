@@ -65,6 +65,14 @@ public class VendaProduto {
     public void setProduto(Produto Produto) {
         this.Produto = Produto;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        VendaProduto Vp = (VendaProduto) obj;
+        if (Vp.getProduto().getId() == this.getProduto().getId()){
+            return true;
+        }else {
+        return false;
+        }
+    }
 }

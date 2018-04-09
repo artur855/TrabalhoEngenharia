@@ -31,7 +31,44 @@ public class Venda {
     public Venda(ArrayList<VendaProduto> VendaProduto, Funcionario Funcionario, int Id_Venda, String data) {
         this(VendaProduto, Funcionario, Id_Venda, data, null);
     }
-
+    
+    public Venda(Funcionario Funcionario, int Id_Venda, String Data) {
+        this.funcionario = Funcionario;
+        this.idVenda = Id_Venda;
+        this.data = Data;
+    }
+    
+    public void AdicionarNaVenda(VendaProduto Vp){
+        if (!listVendaProduto.contains(Vp)){
+        this.listVendaProduto.add(Vp);
+        } else {
+            AdicionarQuantidade(Vp);
+        }
+    }
+    
+    public void AdicionarQuantidade(VendaProduto Vp){
+        int index = listVendaProduto.indexOf(Vp);
+        this.listVendaProduto.get(index).setQuantidadeProduto(
+        this.listVendaProduto.get(index).getQuantidadeProduto() + Vp.getQuantidadeProduto());
+    }
+    
+    public void Menor_MaiorValor(){
+        for(VendaProduto VP : this.listVendaProduto){
+            if (VP.getProduto().getPreco() > maiorDeTodos){
+                    maiorDeTodos = VP.getProduto().getPreco();
+            }
+            if (VP.getProduto().getPreco() < menorDeTodos){
+                    menorDeTodos = VP.getProduto().getPreco();  
+            }
+        }
+    }
+    
+    public void FinalizarVenda(){
+        Menor_MaiorValor();
+        GerarPrecoTotal();
+        GerarComissao(); 
+    }
+    
     private void GerarPrecoTotal() {
         for (VendaProduto VP : this.listVendaProduto) {
             precoTotal += VP.getPreco();
@@ -112,16 +149,5 @@ public class Venda {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
-    }
-
-    public void Menor_MaiorValor() {
-        for (VendaProduto VP : this.listVendaProduto) {
-            if (VP.getProduto().getPreco() > maiorDeTodos) {
-                maiorDeTodos = VP.getProduto().getPreco();
-            }
-            if (VP.getProduto().getPreco() < menorDeTodos) {
-                menorDeTodos = VP.getProduto().getPreco();
-            }
-        }
     }
 }
